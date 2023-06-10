@@ -9,7 +9,7 @@ function CustomNavbar() {
       <Container>
         <Navbar.Brand>
             <img
-              src={require('../images/alveno-logo.svg').default}
+              src={require('../images/alveno-logo-dark.svg').default}
               width="150"
               className="d-inline-block align-top"
               alt="Alveno"
