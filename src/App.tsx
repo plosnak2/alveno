@@ -1,10 +1,15 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { TeamsPage } from './pages/teams';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div>
-      hi
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TeamsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
