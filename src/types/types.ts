@@ -1,11 +1,11 @@
-export interface ITeam {
+export type ITeam = {
     createdAt: string | null;
     id: string;
     name: string | null;
     parentTeam: string | null;
 }
 
-export interface IEmployee {
+export type IEmployee = {
     createdAt: string;
     endDate: string | null;
     id: string;
