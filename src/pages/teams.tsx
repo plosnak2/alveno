@@ -5,6 +5,7 @@ import axios from "axios";
 import { ITeam, IEmployee } from "../types/types";
 import Spinner from 'react-bootstrap/Spinner';
 import { getTeams, getEmployees, config } from "../config/config";
+import Accordion from 'react-bootstrap/Accordion';
 
 export const TeamsPage: FC = ({}) => {
     const [teams, setTeams] = useState<ITeam[]>([])
@@ -32,7 +33,11 @@ export const TeamsPage: FC = ({}) => {
         return (
             <div>
                 <CustomNavbar />
-                <Parent />
+                <div className="container main-accordion">
+                    <Accordion alwaysOpen>
+                        <Parent teams={teams} employees={employees} parent={null}/>
+                    </Accordion>
+                </div>
             </div>
         );
     } else {

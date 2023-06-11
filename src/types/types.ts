@@ -13,4 +13,5 @@ export type IEmployee = {
     startDate: string | null;
     surname: string;
     team: string | null;
+    position: string | null;
 }

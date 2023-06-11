@@ -19,3 +19,15 @@ a:hover {
     text-decoration: none;
     color: inherit;
 }
+
+.main-accordion {
+    margin-top: 50px;
+}
+
+button {
+    background-color:  #10BFFC !important; 
+}
+
+.header button {
+    background-color:  #02D076 !important;
+}
