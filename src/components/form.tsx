@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ICreateEmployee } from '../types/types';
-import { insertEmpl } from '../config/api';
+import { insertEmployee } from '../config/api';
 import {
     useQueryClient,
     useMutation
@@ -31,7 +31,7 @@ export const FormAddEmployee: FC<IProps> = ({teamId, handleClose}) => {
 
     // mutation function for post request (inserting new employee into db)
     const mutation = useMutation({
-        mutationFn: insertEmpl,
+        mutationFn: insertEmployee,
         onSuccess: () => {
             // on success closing modal + reseting query (refetch) + toasting success
             queryClient.invalidateQueries({ queryKey: ['employees'] });

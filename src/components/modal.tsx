@@ -1,8 +1,6 @@
-import { useState, FC } from 'react';
-import Button from 'react-bootstrap/Button';
+import { FC } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import FormAddEmployee from './form';
-import { Form } from 'react-router-dom';
 
 interface IProps {
     show: boolean;

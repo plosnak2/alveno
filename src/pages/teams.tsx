@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import CustomNavbar from "../components/navbar";
 import { Parent } from "../components/parent";
 import Spinner from 'react-bootstrap/Spinner';

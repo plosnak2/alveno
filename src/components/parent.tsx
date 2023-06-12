@@ -1,12 +1,10 @@
 import { FC, useState } from "react";
 import { ITeam, IEmployee } from "../types/types";
 import Accordion from 'react-bootstrap/Accordion';
-import { stringify } from "querystring";
 import Button from 'react-bootstrap/Button';
 import ModalAddEmployee from "./modal";
 import { AiFillDelete } from 'react-icons/ai';
-import axios from "axios";
-import { config, deleteEmployee } from "../config/api";
+import { deleteEmployee } from "../config/api";
 import {
     useQueryClient,
     useMutation
