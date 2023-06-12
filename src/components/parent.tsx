@@ -2,14 +2,9 @@ import { FC, useState } from "react";
 import { ITeam, IEmployee } from "../types/types";
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
-import ModalAddEmployee from "./modal";
+import ModalAddEmployee from "./modalAddEmployee";
 import { AiFillDelete } from 'react-icons/ai';
-import { deleteEmployee } from "../config/api";
-import {
-    useQueryClient,
-    useMutation
-} from '@tanstack/react-query'
-import toast from 'react-hot-toast';
+import ModalDeleteEmployee from "./modalDeleteEmployee";
 
 interface IProps {
     teams: ITeam[];
@@ -18,37 +13,38 @@ interface IProps {
 }
 
 export const Parent: FC<IProps> = ({teams, employees, parent}) => {
-    const queryClient = useQueryClient()
     // show state for showing and closing modal window for adding new employee
-    const [show, setShow] = useState<boolean>(false);
+    const [showModalAdd, setShowModalAdd] = useState<boolean>(false);
     // teamId state for passing it into modal window
     const [teamId, setTeamId] = useState<string>('')
+    // show state for showing and closing modal window for deleting employees
+    const [showModalDelete, setShowModalDelete] = useState<boolean>(false);
+    // employee state for passing it into modal window
+    const [employee, setEmployee] = useState<IEmployee | null>(null)
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    // functions that handle both modal windows
+    const handleCloseModalAdd = () => setShowModalAdd(false);
+    const handleShowModalAdd = () => setShowModalAdd(true);
 
-    // function that sets team id and opens modal
+    const handleCloseModalDelete = () => setShowModalDelete(false);
+    const handleShowModalDelete = () => setShowModalDelete(true);
+
+    // function that sets team id and opens modal for adding employee
     const addEmployee = (teamId: string) : void => {
         setTeamId(teamId)
-        handleShow();
+        handleShowModalAdd();
     }
 
-    const mutation = useMutation({
-        mutationFn: deleteEmployee,
-        onSuccess: () => {
-            // reseting query (refetch) + toasting success
-            queryClient.invalidateQueries({ queryKey: ['employees'] });
-            toast.success('Employee Deleted')
-        },
-        onError: () => {
-            // on error indicates that there was an error
-            toast.error("There was an error while deleting Employee.")
-        },
-    })
+    // function that sets employee state and opens modal for deleting employee
+    const deleteEmployee = (employee: IEmployee) => {
+        setEmployee(employee)
+        handleShowModalDelete()
+    }
 
     return (
         <>
-        <ModalAddEmployee show={show} handleClose={handleClose} teamId={teamId}/>
+        <ModalAddEmployee show={showModalAdd} handleClose={handleCloseModalAdd} teamId={teamId}/>
+        <ModalDeleteEmployee show={showModalDelete} handleClose={handleCloseModalDelete} employee={employee}/>
         {
             teams.map((team,index) => (
                 team.parentTeam === parent 
@@ -66,8 +62,8 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
                                             <div key={employee.id}>
                                                 {
                                                     (employee.endDate == null || new Date(Date.parse(employee.endDate as string)) > new Date()) ? 
-                                                    <div>{employee.name} {employee.surname} - {employee.position} <AiFillDelete size={30} color="red" className="icon" onClick={() =>  mutation.mutate(employee.id)}/></div> : 
-                                                    <div style={{color:"grey"}}>{employee.name} {employee.surname} - {employee.position} <AiFillDelete size={30} color="red" className="icon" onClick={() => mutation.mutate(employee.id)}/></div>
+                                                    <div>{employee.name} {employee.surname} - {employee.position} <AiFillDelete size={30} color="red" className="icon" onClick={() => deleteEmployee(employee)}/></div> : 
+                                                    <div style={{color:"grey"}}>{employee.name} {employee.surname} - {employee.position} <AiFillDelete size={30} color="red" className="icon" onClick={() => deleteEmployee(employee)}/></div>
                                                 }
                                             </div> :
                                             null

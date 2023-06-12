@@ -94,6 +94,11 @@ button {
     opacity: 75%;
 }
 
+.delete-button {
+    background-color: #10BFFC !important;
+    color: black;
+}
+
 @media screen and (max-width: 450px) {
     .column {
         flex: 100%;
