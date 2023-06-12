@@ -24,3 +24,8 @@ export type ICreateEmployee = {
     team: string | null;
     position: string | null;
 }
+
+export type ICreateTeam = {
+    name: string;
+    parentTeam: string | null
+}

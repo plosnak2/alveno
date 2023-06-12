@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ICreateEmployee } from "../types/types";
+import { ICreateEmployee, ICreateTeam } from "../types/types";
 
 // config with apikey header
 export const config = {
@@ -16,6 +16,11 @@ export const deleteEmployee = (id: string) => {
 // api for creating new employee
 export const insertEmployee = (employee: ICreateEmployee) => {
     return axios.post("https://nktebdhspzvpwguqcksn.supabase.co/rest/v1/employees", employee, config)
+}
+
+// api for creating new team
+export const createTeam = (team: ICreateTeam) => {
+  return axios.post("https://nktebdhspzvpwguqcksn.supabase.co/rest/v1/teams", team, config)
 }
 
 // api for fetching employees

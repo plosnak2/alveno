@@ -45,7 +45,7 @@ export const FormAddEmployee: FC<IProps> = ({teamId, handleClose}) => {
       })
 
      const submitForm = (data: ICreateEmployee) => {
-        mutation.mutate(data as any);
+        mutation.mutate(data);
      }
 
     return (

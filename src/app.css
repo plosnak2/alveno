@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Roboto Mono', monospace;
+    min-height: 100vh;
 }
 .spinner {
     margin: auto;
@@ -97,6 +98,21 @@ button {
 .delete-button {
     background-color: #10BFFC !important;
     color: black;
+}
+
+.add-team-button {
+    position: fixed;
+    bottom: 10%;
+    right: 10%;
+    background-color: #02D076;
+    border-radius: 100px;
+    padding: 5px;
+    z-index: 999;
+}
+
+.add-team-button:hover {
+    opacity: 75%;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 450px) {

@@ -8,6 +8,7 @@ import {
     useQuery,
 } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast';
+import AddTeam from "../components/addTeam";
 
 export const TeamsPage: FC = ({}) => {
     // query for teams api
@@ -34,7 +35,8 @@ export const TeamsPage: FC = ({}) => {
 
     // otherwise application is returned
     return (
-        <div>
+        <div >
+            <AddTeam />
             <Toaster
                 position="top-center"
                 reverseOrder={false}
