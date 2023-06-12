@@ -1,3 +1,5 @@
+//config file with api paths and header config with apikey
+
 export const getTeams = "https://nktebdhspzvpwguqcksn.supabase.co/rest/v1/teams?select=*";
 export const getEmployees = "https://nktebdhspzvpwguqcksn.supabase.co/rest/v1/employees?select=*";
 export const insertEmployee = "https://nktebdhspzvpwguqcksn.supabase.co/rest/v1/employees"

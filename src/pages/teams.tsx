@@ -13,6 +13,7 @@ import {
 import { Toaster } from 'react-hot-toast';
 
 export const TeamsPage: FC = ({}) => {
+    // query for teams api
     const getTeamsQuery = useQuery({
         queryKey: ['teams'],
         queryFn: async () => {
@@ -22,6 +23,7 @@ export const TeamsPage: FC = ({}) => {
         }
     })
 
+    // query for employees api
     const getEmployeesQuery = useQuery({
         queryKey: ['employees'],
         queryFn: async () => {
@@ -31,6 +33,7 @@ export const TeamsPage: FC = ({}) => {
         }
     })
 
+    // if teams or employees is still loading (fetching) then loader spinner is shown as indicator
     if( getTeamsQuery.isLoading || getEmployeesQuery.isLoading ){
         return ( 
             <div>
@@ -40,6 +43,7 @@ export const TeamsPage: FC = ({}) => {
         )
     }
 
+    // otherwise application is returned
     return (
         <div>
             <Toaster

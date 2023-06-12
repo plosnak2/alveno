@@ -20,6 +20,7 @@ interface IProps {
 export const FormAddEmployee: FC<IProps> = ({teamId, handleClose}) => {
     const queryClient = useQueryClient()
 
+    // initial formular values
     const initialValues = {
         name: "",
         surname: "",
@@ -29,18 +30,19 @@ export const FormAddEmployee: FC<IProps> = ({teamId, handleClose}) => {
         team:teamId
     };
 
+    // mutation function for post request (inserting new employee into db)
     const mutation = useMutation({
         mutationFn: (employee) => {
           return axios.post(insertEmployee, employee, config)
         },
         onSuccess: () => {
-            // Invalidate and refetch
+            // on success closing modal + reseting query (refetch) + toasting success
             queryClient.invalidateQueries({ queryKey: ['employees'] });
             handleClose();
             toast.success('Employee Added')
         },
         onError: () => {
-            // Invalidate and refetch
+            // on error indicates that there was an error
             toast.error("There was an error while adding new Employee.")
         },
       })

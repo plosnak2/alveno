@@ -12,16 +12,20 @@ interface IProps {
 }
 
 export const Parent: FC<IProps> = ({teams, employees, parent}) => {
+    // show state for showing and closing modal window for adding new employee
     const [show, setShow] = useState<boolean>(false);
+    // teamId state for passing it into modal window
     const [teamId, setTeamId] = useState<string>('')
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    // function that sets team id and opens modal
     const addEmployee = (teamId: string) : void => {
         setTeamId(teamId)
         handleShow();
     }
+
     return (
         <>
         <ModalAddEmployee show={show} handleClose={handleClose} teamId={teamId}/>

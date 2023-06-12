@@ -11,6 +11,7 @@ interface IProps {
 }
 
 export const ModalAddEmployee: FC<IProps> = ({show, handleClose, teamId}) => {
+  // modal window component
   return (
     <>
       <Modal

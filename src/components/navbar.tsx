@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
 
 function CustomNavbar() {
+  // navbar component
   return (
     <Navbar expand="lg" style={{backgroundColor:" #02D076"}}>
       <Container>
