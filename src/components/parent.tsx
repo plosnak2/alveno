@@ -38,7 +38,7 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
                     <Accordion.Body >
                         <Accordion alwaysOpen>
                             <Accordion.Item eventKey={index.toString()}>
-                                <Accordion.Header className="header">Členovia tímu</Accordion.Header>
+                                <Accordion.Header className="header">Team members</Accordion.Header>
                                 <Accordion.Body>
                                     {
                                         employees.map((employee) => (
@@ -53,7 +53,7 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
                                             null
                                         ))
                                     }
-                                    <Button className="add-employee" variant="primary" onClick={() => {addEmployee(team.id)}}>Pridať zamestnanca</Button>
+                                    <Button className="add-employee" variant="primary" onClick={() => {addEmployee(team.id)}}>Add employee</Button>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
