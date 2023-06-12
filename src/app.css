@@ -22,6 +22,7 @@ a:hover {
 
 .main-accordion {
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 button {
@@ -30,4 +31,60 @@ button {
 
 .header button {
     background-color:  #02D076 !important;
+}
+
+.add-employee{
+    color: black;
+    background-color: #10BFFC !important;
+    margin-top: 15px;
+}
+
+.add-employee:hover{
+    opacity: 70%;
+}
+
+.calendar {
+    background-color: #10BFFC;
+    color: black;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: 100%;
+    border-width: 0px;
+}
+
+.calendar:hover {
+    cursor: pointer;
+    opacity: 70%;
+}
+
+.calendar::placeholder {
+    color: black;
+}
+
+.row {
+    display: flex;
+    margin-top: 20px;
+}
+
+.column {
+    flex: 50%;
+    text-align: center;
+}
+
+.label {
+    margin-top: 10px;
+}
+
+.submit-button {
+    width: 100%;
+    margin-top: 15px;
+    height: 50px;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.submit-button:hover {
+    opacity: 75%;
 }

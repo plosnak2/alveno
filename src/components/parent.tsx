@@ -1,7 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { ITeam, IEmployee } from "../types/types";
 import Accordion from 'react-bootstrap/Accordion';
 import { stringify } from "querystring";
+import Button from 'react-bootstrap/Button';
+import ModalAddEmployee from "./modal";
 
 interface IProps {
     teams: ITeam[];
@@ -10,8 +12,19 @@ interface IProps {
 }
 
 export const Parent: FC<IProps> = ({teams, employees, parent}) => {
+    const [show, setShow] = useState<boolean>(false);
+    const [teamId, setTeamId] = useState<string>('')
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const addEmployee = (teamId: string) : void => {
+        setTeamId(teamId)
+        handleShow();
+    }
     return (
         <>
+        <ModalAddEmployee show={show} handleClose={handleClose} teamId={teamId}/>
         {
             teams.map((team,index) => (
                 team.parentTeam === parent 
@@ -36,6 +49,7 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
                                             null
                                         ))
                                     }
+                                    <Button className="add-employee" variant="primary" onClick={() => {addEmployee(team.id)}}>Pridať zamestnanca</Button>
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
