@@ -15,3 +15,12 @@ export type IEmployee = {
     team: string | null;
     position: string | null;
 }
+
+export type ICreateEmployee = {
+    endDate: string | null;
+    name: string;
+    startDate: string | null;
+    surname: string;
+    team: string | null;
+    position: string | null;
+}
