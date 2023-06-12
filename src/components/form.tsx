@@ -49,7 +49,7 @@ export const FormAddEmployee: FC<IProps> = ({}) => {
                 />
                 <div className="row">
                     <div className="column">
-                        <div>Pracuje od:</div>
+                        <div>Works from:</div>
                         <DatePicker
                             className="calendar"
                             selected={values.startDate}
@@ -60,7 +60,7 @@ export const FormAddEmployee: FC<IProps> = ({}) => {
                         />
                     </div>
                     <div className="column">
-                        <div>Pracuje do:</div>
+                        <div>Works until:</div>
                         <DatePicker
                             className="calendar"
                             selected={values.endDate}

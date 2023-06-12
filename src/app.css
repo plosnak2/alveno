@@ -88,3 +88,9 @@ button {
 .submit-button:hover {
     opacity: 75%;
 }
+
+@media screen and (max-width: 450px) {
+    .column {
+        flex: 100%;
+    }
+}
