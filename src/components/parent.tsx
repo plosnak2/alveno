@@ -33,7 +33,7 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
             teams.map((team,index) => (
                 team.parentTeam === parent 
                 ? 
-                <Accordion.Item eventKey={team.id} style={{marginTop:"10px"}}>
+                <Accordion.Item eventKey={team.id} style={{marginTop:"10px"}} key={team.id}>
                     <Accordion.Header>{team.name}</Accordion.Header>
                     <Accordion.Body >
                         <Accordion alwaysOpen>
@@ -43,7 +43,7 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
                                     {
                                         employees.map((employee) => (
                                             employee.team === team.id ?
-                                            <div>
+                                            <div key={employee.id}>
                                                 {
                                                     (employee.endDate == null || new Date(Date.parse(employee.endDate as string)) > new Date()) ? 
                                                     <div>{employee.name} {employee.surname} - {employee.position}</div> : 
