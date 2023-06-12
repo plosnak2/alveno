@@ -4,6 +4,14 @@ import Accordion from 'react-bootstrap/Accordion';
 import { stringify } from "querystring";
 import Button from 'react-bootstrap/Button';
 import ModalAddEmployee from "./modal";
+import { AiFillDelete } from 'react-icons/ai';
+import axios from "axios";
+import { config, deleteEmployee } from "../config/api";
+import {
+    useQueryClient,
+    useMutation
+} from '@tanstack/react-query'
+import toast from 'react-hot-toast';
 
 interface IProps {
     teams: ITeam[];
@@ -12,6 +20,7 @@ interface IProps {
 }
 
 export const Parent: FC<IProps> = ({teams, employees, parent}) => {
+    const queryClient = useQueryClient()
     // show state for showing and closing modal window for adding new employee
     const [show, setShow] = useState<boolean>(false);
     // teamId state for passing it into modal window
@@ -25,6 +34,19 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
         setTeamId(teamId)
         handleShow();
     }
+
+    const mutation = useMutation({
+        mutationFn: deleteEmployee,
+        onSuccess: () => {
+            // reseting query (refetch) + toasting success
+            queryClient.invalidateQueries({ queryKey: ['employees'] });
+            toast.success('Employee Deleted')
+        },
+        onError: () => {
+            // on error indicates that there was an error
+            toast.error("There was an error while deleting Employee.")
+        },
+    })
 
     return (
         <>
@@ -46,8 +68,8 @@ export const Parent: FC<IProps> = ({teams, employees, parent}) => {
                                             <div key={employee.id}>
                                                 {
                                                     (employee.endDate == null || new Date(Date.parse(employee.endDate as string)) > new Date()) ? 
-                                                    <div>{employee.name} {employee.surname} - {employee.position}</div> : 
-                                                    <div style={{color:"grey"}}>{employee.name} {employee.surname} - {employee.position}</div>
+                                                    <div>{employee.name} {employee.surname} - {employee.position} <AiFillDelete size={30} color="red" className="icon" onClick={() =>  mutation.mutate(employee.id)}/></div> : 
+                                                    <div style={{color:"grey"}}>{employee.name} {employee.surname} - {employee.position} <AiFillDelete size={30} color="red" className="icon" onClick={() => mutation.mutate(employee.id)}/></div>
                                                 }
                                             </div> :
                                             null

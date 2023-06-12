@@ -89,6 +89,11 @@ button {
     opacity: 75%;
 }
 
+.icon:hover {
+    cursor: pointer;
+    opacity: 75%;
+}
+
 @media screen and (max-width: 450px) {
     .column {
         flex: 100%;

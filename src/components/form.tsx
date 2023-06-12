@@ -1,11 +1,10 @@
-import { useState, FC } from 'react';
+import { FC } from 'react';
 import { Formik } from "formik";
 import Form from 'react-bootstrap/Form';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { IEmployee, ICreateEmployee } from '../types/types';
-import axios from "axios";
-import { insertEmployee, config } from '../config/config';
+import { ICreateEmployee } from '../types/types';
+import { insertEmpl } from '../config/api';
 import {
     useQueryClient,
     useMutation
@@ -32,9 +31,7 @@ export const FormAddEmployee: FC<IProps> = ({teamId, handleClose}) => {
 
     // mutation function for post request (inserting new employee into db)
     const mutation = useMutation({
-        mutationFn: (employee) => {
-          return axios.post(insertEmployee, employee, config)
-        },
+        mutationFn: insertEmpl,
         onSuccess: () => {
             // on success closing modal + reseting query (refetch) + toasting success
             queryClient.invalidateQueries({ queryKey: ['employees'] });
