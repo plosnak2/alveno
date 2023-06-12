@@ -6,46 +6,52 @@ import { ITeam, IEmployee } from "../types/types";
 import Spinner from 'react-bootstrap/Spinner';
 import { getTeams, getEmployees, config } from "../config/config";
 import Accordion from 'react-bootstrap/Accordion';
+import {
+    useQuery,
+    useQueryClient,
+} from '@tanstack/react-query'
+import { Toaster } from 'react-hot-toast';
 
 export const TeamsPage: FC = ({}) => {
-    const [teams, setTeams] = useState<ITeam[]>([])
-    const [employees, setEmployees] = useState<IEmployee[]>([])
-    const [loadedTeams, setLoadedTeams] = useState<boolean>(false)
-    const [loadedEmployees, setLoadedEmployees] = useState<boolean>(false)
+    const getTeamsQuery = useQuery({
+        queryKey: ['teams'],
+        queryFn: async () => {
+            const response = await axios.get(getTeams, config)
+            const data = await response.data;
+            return data;
+        }
+    })
 
-    // fetching data from server -> fetching info about teams and employees and afterwards setting loaded flags 
-    useEffect(() => {
-        axios.get(getTeams, config)
-        .then((response) => {
-            setTeams(response.data);
-            setLoadedTeams(true)
-        })
-        
-        axios.get(getEmployees, config)
-        .then((response) => {
-            setEmployees(response.data);
-            setLoadedEmployees(true)
-        })
-    }, [])
+    const getEmployeesQuery = useQuery({
+        queryKey: ['employees'],
+        queryFn: async () => {
+            const response = await axios.get(getEmployees, config)
+            const data = await response.data;
+            return data;
+        }
+    })
 
-    // if both information is loaded then component is rendered otherwise loading spinner is rendered
-    if(loadedEmployees && loadedTeams){
-        return (
-            <div>
-                <CustomNavbar />
-                <div className="container main-accordion">
-                    <Accordion alwaysOpen>
-                        <Parent teams={teams} employees={employees} parent={null}/>
-                    </Accordion>
-                </div>
-            </div>
-        );
-    } else {
-        return (
+    if( getTeamsQuery.isLoading || getEmployeesQuery.isLoading ){
+        return ( 
             <div>
                 <CustomNavbar />
                 <Spinner className="spinner" animation="border" />
             </div>
         )
-    }  
+    }
+
+    return (
+        <div>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
+            <CustomNavbar />
+            <div className="container main-accordion">
+                <Accordion alwaysOpen>
+                    <Parent teams={getTeamsQuery.data} employees={getEmployeesQuery.data} parent={null}/>
+                </Accordion>
+            </div>
+        </div>
+    );
 };

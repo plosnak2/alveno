@@ -23,7 +23,7 @@ export const ModalAddEmployee: FC<IProps> = ({show, handleClose, teamId}) => {
           <Modal.Title>Add employee</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <FormAddEmployee teamId={teamId}/>
+          <FormAddEmployee teamId={teamId} handleClose={handleClose}/>
         </Modal.Body>
         
       </Modal>

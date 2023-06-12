@@ -6,12 +6,20 @@ import "react-datepicker/dist/react-datepicker.css";
 import { IEmployee, ICreateEmployee } from '../types/types';
 import axios from "axios";
 import { insertEmployee, config } from '../config/config';
+import {
+    useQueryClient,
+    useMutation
+} from '@tanstack/react-query'
+import toast from 'react-hot-toast';
 
 interface IProps {
-    teamId:string
+    teamId:string;
+    handleClose: () => void
 }
 
-export const FormAddEmployee: FC<IProps> = ({teamId}) => {
+export const FormAddEmployee: FC<IProps> = ({teamId, handleClose}) => {
+    const queryClient = useQueryClient()
+
     const initialValues = {
         name: "",
         surname: "",
@@ -21,16 +29,28 @@ export const FormAddEmployee: FC<IProps> = ({teamId}) => {
         team:teamId
     };
 
-    const addEmployee = (data: ICreateEmployee) => {
-        axios.post(insertEmployee, data, config)
-        .then(res => {
-            console.log(res);
-            console.log(res.data);
-        })
-    };
+    const mutation = useMutation({
+        mutationFn: (employee) => {
+          return axios.post(insertEmployee, employee, config)
+        },
+        onSuccess: () => {
+            // Invalidate and refetch
+            queryClient.invalidateQueries({ queryKey: ['employees'] });
+            handleClose();
+            toast.success('Employee Added')
+        },
+        onError: () => {
+            // Invalidate and refetch
+            toast.error("There was an error while adding new Employee.")
+        },
+      })
+
+     const submitForm = (data: ICreateEmployee) => {
+        mutation.mutate(data as any);
+     }
 
     return (
-        <Formik onSubmit={(values) => addEmployee(values)} initialValues={initialValues}>
+        <Formik onSubmit={submitForm} initialValues={initialValues}>
         {({ handleSubmit, values, setFieldValue }) => (
             <form onSubmit={handleSubmit}>
                 <Form.Label>Name</Form.Label>
